@@ -13,14 +13,26 @@ const tasks = [
 export default function Home() {
   const [newTask, setNewTask] = useState("wacky");
   const [changeList, setChangeList] = useState(tasks);
-  console.log(newTask. changeList)
+  // console.log(newTask. changeList)
+
+  const deletingTask = (idx) => {
+    const deleteTasks = changeList.toSpliced(idx, 1)
+    setChangeList(deleteTasks)
+  }
+
   return (
     <div id="listSquare"> 
       <h1>To do list</h1> 
       <div>
         <ul>
-          {changeList.map((x) => (
-            <li>{x}</li>
+          {changeList.map((x, idx) => (
+            <li>
+              <div>
+                {x}
+                <input type="button" value="edit" />
+                <input type="button" value="delete" onClick={()=>deletingTask(idx)} />
+              </div>
+            </li>
           ))}
         </ul>
       </div>
