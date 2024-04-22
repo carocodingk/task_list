@@ -54,7 +54,10 @@ export default function Home() {
     <div id="listSquare"> 
       <div>
       <h1>To do list</h1> 
-        <div>
+        {changeList.length === 0?
+          <p>Your day is clear</p>
+          : (
+          <div>
           <ul>
             {changeList.map((task, idx) => (
               <li>
@@ -76,7 +79,9 @@ export default function Home() {
               </li>
             ))}
           </ul>
-        </div>
+          </div>
+        )}
+
         <div>
           <div>
             <label for="task"></label>
