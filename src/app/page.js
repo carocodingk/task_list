@@ -10,6 +10,85 @@ const tasks = [
   "Cleaning the bathroom",
 ];
 
+const url = "http://127.0.0.1:5000"
+
+async function logTasks() {
+  const response = await fetch(`${url}/tasks`);
+  const tasks = await response.json();
+  console.log(tasks);
+}
+
+// task 1: create a function that post a task to flask server => postTask("write code"); postTask("learn more");
+// creating a task will return an id. Grab id to delete/modify task
+// body: { description: "new task" } 
+// task 2: delete one of the task that exists in the server => deleteTask('idOfTask'); deleteTask(0);
+// body: { id: taskId }
+// task 3: modify a task  => modifyTask(0, 'delete') 
+// put request
+// body: { id: taskId, description: "updated task"}
+// use the body to submit information
+
+/* request needs headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: data,
+    method: 
+*/
+logTasks()
+
+
+async function postTask(data) {
+  const response = await fetch(`${url}/task`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: JSON.stringify({description: data})
+  });
+  const x = await response.json();
+  console.log(x)
+}
+
+postTask("Testing post task to server")
+
+async function deleteTask(id) {
+  const response = await fetch(`${url}/task`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: JSON.stringify({id: id})
+  });
+  const x = await response.json();
+  console.log(x)
+}
+
+deleteTask(8)
+
+
+async function modifyTask(id, newData) {
+  const response = await fetch(`${url}/task`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({id: id, description: newData})
+  });
+  const x = await response.json();
+  console.log(x)
+}
+
+modifyTask(10, "This is a modified task3")
+
+
+
+
+
+
+
 export default function Home() {
   const [newTask, setNewTask] = useState("Enter new task...");
   const [changeList, setChangeList] = useState(tasks);
